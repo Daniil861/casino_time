@@ -412,6 +412,10 @@
             sessionStorage.setItem("bonus-2", +sessionStorage.getItem("bonus-2") - 1);
             check_bonuses();
             hold_button_bonus(targetElement.closest(".bonuses__button"));
+            document.querySelectorAll(".bonuses__button").forEach((el => {
+                if (2 == el.dataset.bonus) el.classList.add("_anim-2");
+            }));
+            document.querySelector(".field__items").classList.add("_locator");
         }
         if (targetElement.closest(".bonuses__button") && 3 == targetElement.closest(".bonuses__button").dataset.bonus) if (+sessionStorage.getItem("bonus-3") > 0) {
             sessionStorage.setItem("bonus-3", +sessionStorage.getItem("bonus-3") - 1);
@@ -443,7 +447,66 @@
             }), 1e3);
         }
         if (targetElement.closest(".actions-game__button-start") && 2 == config.program) get_money_and_restart_game();
-        if (targetElement.closest(".field__item")) {
+        if (targetElement.closest(".field__item")) if (document.querySelector(".field__items").classList.contains("_locator")) {
+            document.querySelector(".field__items").classList.remove("_locator");
+            document.querySelectorAll(".bonuses__button").forEach((el => {
+                if (2 == el.dataset.bonus && el.classList.contains("_anim-2")) el.classList.remove("_anim-2");
+            }));
+            let number = targetElement.closest(".field__item").dataset.number - 1;
+            console.log(`Locator, number - ${number}`);
+            if (number - 6 >= 0 && 0 != number && 5 != number && 10 != number && 15 != number && 20 != number) {
+                document.querySelectorAll(".item-field__cap")[number - 6].classList.add("_locator");
+                setTimeout((() => {
+                    document.querySelectorAll(".item-field__cap")[number - 6].classList.remove("_locator");
+                }), 1500);
+            }
+            if (number - 5 >= 0) {
+                document.querySelectorAll(".item-field__cap")[number - 5].classList.add("_locator");
+                setTimeout((() => {
+                    document.querySelectorAll(".item-field__cap")[number - 5].classList.remove("_locator");
+                }), 1500);
+            }
+            if (number - 4 >= 0 && 4 != number && 9 != number && 14 != number && 19 != number && 24 != number) {
+                document.querySelectorAll(".item-field__cap")[number - 4].classList.add("_locator");
+                setTimeout((() => {
+                    document.querySelectorAll(".item-field__cap")[number - 4].classList.remove("_locator");
+                }), 1500);
+            }
+            if (number - 1 >= 0 && 0 != number && 5 != number && 10 != number && 15 != number && 20 != number) {
+                document.querySelectorAll(".item-field__cap")[number - 1].classList.add("_locator");
+                setTimeout((() => {
+                    document.querySelectorAll(".item-field__cap")[number - 1].classList.remove("_locator");
+                }), 1500);
+            }
+            document.querySelectorAll(".item-field__cap")[number].classList.add("_locator");
+            setTimeout((() => {
+                document.querySelectorAll(".item-field__cap")[number].classList.remove("_locator");
+            }), 1500);
+            if (number + 1 <= 24 && 4 != number && 9 != number && 14 != number && 19 != number && 24 != number) {
+                document.querySelectorAll(".item-field__cap")[number + 1].classList.add("_locator");
+                setTimeout((() => {
+                    document.querySelectorAll(".item-field__cap")[number + 1].classList.remove("_locator");
+                }), 1500);
+            }
+            if (number + 4 <= 24 && 0 != number && 5 != number && 10 != number && 15 != number && 20 != number) {
+                document.querySelectorAll(".item-field__cap")[number + 4].classList.add("_locator");
+                setTimeout((() => {
+                    document.querySelectorAll(".item-field__cap")[number + 4].classList.remove("_locator");
+                }), 1500);
+            }
+            if (number + 5 <= 24) {
+                document.querySelectorAll(".item-field__cap")[number + 5].classList.add("_locator");
+                setTimeout((() => {
+                    document.querySelectorAll(".item-field__cap")[number + 5].classList.remove("_locator");
+                }), 1500);
+            }
+            if (number + 6 <= 24 && 4 != number && 9 != number && 14 != number && 19 != number && 24 != number) {
+                document.querySelectorAll(".item-field__cap")[number + 6].classList.add("_locator");
+                setTimeout((() => {
+                    document.querySelectorAll(".item-field__cap")[number + 6].classList.remove("_locator");
+                }), 1500);
+            }
+        } else {
             targetElement.closest(".field__item").classList.add("_active");
             open_item_and_check(targetElement.closest(".item-field__cap"), targetElement.closest(".field__item"));
         }
