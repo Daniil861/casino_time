@@ -685,7 +685,7 @@ body._hold {
 .button-bonus__body {
   width: 11.5625rem;
   height: 6.9375rem;
-  background: url("../img/icons/btn-market-bg.svg") center/contain no-repeat;
+  background: url("../img/icons/btn-bonus.png") center/contain no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -736,8 +736,7 @@ body._hold {
 }
 .button-bonus__locator {
   transform-origin: center;
-  transform: rotate(0deg);
-  animation: rotate_arrow 6s linear infinite;
+  animation: rotate 6s linear infinite;
 }
 .button-bonus__icon_game {
   padding-left: 0.1875rem;
@@ -779,7 +778,7 @@ body._hold {
   right: 0.09375rem;
   width: 4.25rem;
   height: 2.5625rem;
-  background: url("../img/icons/btn-buy.svg") center/contain no-repeat;
+  background: url("../img/icons/btn-buy.png") center/contain no-repeat;
   padding: 0rem 0.4375rem 0.4375rem;
   display: flex;
   justify-content: center;
@@ -1363,6 +1362,9 @@ body._hold {
 .item-field__cap._hide {
   opacity: 0;
 }
+.item-field__cap._locator {
+  animation: blik-2 0.5s ease 5;
+}
 .item-field__text {
   display: flex;
   min-height: 100%;
@@ -1494,6 +1496,9 @@ body._hold {
 .bonuses__button._anim {
   animation: blik 0.5s ease 2;
 }
+.bonuses__button._anim-2 {
+  animation: blik 0.5s ease infinite;
+}
 .bonuses__button._hold {
   opacity: 0.5;
   pointer-events: none;
@@ -1557,7 +1562,10 @@ body._hold {
     left: 150%;
   }
 }
-@keyframes rotate_arrow {
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
   100% {
     transform: rotate(360deg);
   }
@@ -1596,5 +1604,10 @@ body._hold {
 @keyframes blik {
   100% {
     opacity: 0.2;
+  }
+}
+@keyframes blik-2 {
+  100% {
+    opacity: 0.6;
   }
 }

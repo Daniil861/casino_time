@@ -38,7 +38,7 @@
             el.textContent = sessionStorage.getItem("money");
         }));
     } else {
-        sessionStorage.setItem("money", 850);
+        sessionStorage.setItem("money", 50);
         if (document.querySelector(".check")) document.querySelectorAll(".check").forEach((el => {
             el.textContent = sessionStorage.getItem("money");
         }));
@@ -100,7 +100,17 @@
         if (!sessionStorage.getItem("bonus-2")) sessionStorage.setItem("bonus-2", 0);
         if (!sessionStorage.getItem("bonus-3")) sessionStorage.setItem("bonus-3", 0);
     }
-    if (document.querySelector(".shop") && document.querySelector(".preloader").classList.contains("_hide")) document.querySelector(".shop").classList.add("_active");
+    const config_shop = {
+        price_bonus_1: 4.99,
+        price_bonus_2: 8.99,
+        price_bonus_3: 5.99
+    };
+    if (document.querySelector(".shop") && document.querySelector(".preloader").classList.contains("_hide")) {
+        document.querySelector(".shop").classList.add("_active");
+        document.querySelectorAll(".button-bonus__price")[0].textContent = config_shop.price_bonus_1;
+        document.querySelectorAll(".button-bonus__price")[1].textContent = config_shop.price_bonus_2;
+        document.querySelectorAll(".button-bonus__price")[2].textContent = config_shop.price_bonus_3;
+    }
     const config = {
         field: document.querySelector(".field__items"),
         squares: [],
@@ -214,7 +224,6 @@
         }), 2e3);
     }
     function check_game_over(block) {
-        console.log(block);
         let dataset = block.dataset.object;
         if (0 == dataset) if (+sessionStorage.getItem("bonus-1") > 0) {
             setTimeout((() => {
@@ -263,7 +272,6 @@
     function get_money_and_restart_game() {
         change_start_button();
         document.querySelector(".field__items").classList.add("_hold");
-        console.log(`config.count_win - ${config.count_win}`);
         add_money(+config.count_win, ".check", 1e3, 2e3);
         setTimeout((() => {
             config.count_win = 0;
@@ -274,7 +282,6 @@
     }
     function change_start_button() {
         if (1 == config.program) {
-            console.log(`config.program - ${config.program}`);
             document.querySelector(".actions-game__button-start p").textContent = "cash out";
             document.querySelector(".actions-game__button-start img").remove();
             document.querySelector(".actions-game__button-start").classList.add("button_cash");
@@ -298,7 +305,6 @@
     }
     function check_write_chance_to_win() {
         let empty = 25 - config.start_count_tanks;
-        console.log(`config.start_count_tanks - ${config.start_count_tanks}`);
         let percent_die = (empty / config.remains_move * 100).toFixed(1);
         document.querySelector(".information__number_2").textContent = `${percent_die}%`;
     }
@@ -319,7 +325,6 @@
         document.querySelector(".information__number_3").textContent = next_count_tank_win;
         if (document.querySelector(".actions-game__button-start_cash")) document.querySelector(".actions-game__button-start_cash").textContent = count_tank_win;
         config.count_win = count_tank_win;
-        console.log(config.count_win);
     }
     function reset_game() {
         document.querySelector(".field__items").classList.add("_hold");
@@ -372,17 +377,17 @@
             sessionStorage.setItem("current-bet", +sessionStorage.getItem("money"));
             document.querySelector(".block-bet__coins").textContent = sessionStorage.getItem("current-bet");
         } else no_money(".check");
-        if (targetElement.closest(".button-bonus__btn-buy") && 1 == targetElement.closest(".button-bonus__btn-buy").dataset.shop) if (+sessionStorage.getItem("money") >= 4.99) {
+        if (targetElement.closest(".button-bonus__btn-buy") && 1 == targetElement.closest(".button-bonus__btn-buy").dataset.shop) if (+sessionStorage.getItem("money") >= config_shop.price_bonus_1) {
             sessionStorage.setItem("bonus-1", +sessionStorage.getItem("bonus-1") + 1);
-            delete_money(4.99, ".check");
+            delete_money(config_shop.price_bonus_1, ".check");
         } else no_money(".check");
-        if (targetElement.closest(".button-bonus__btn-buy") && 2 == targetElement.closest(".button-bonus__btn-buy").dataset.shop) if (+sessionStorage.getItem("money") >= 2.99) {
+        if (targetElement.closest(".button-bonus__btn-buy") && 2 == targetElement.closest(".button-bonus__btn-buy").dataset.shop) if (+sessionStorage.getItem("money") >= config_shop.price_bonus_2) {
             sessionStorage.setItem("bonus-2", +sessionStorage.getItem("bonus-2") + 1);
-            delete_money(2.99, ".check");
+            delete_money(config_shop.price_bonus_2, ".check");
         } else no_money(".check");
-        if (targetElement.closest(".button-bonus__btn-buy") && 3 == targetElement.closest(".button-bonus__btn-buy").dataset.shop) if (+sessionStorage.getItem("money") >= 8.99) {
+        if (targetElement.closest(".button-bonus__btn-buy") && 3 == targetElement.closest(".button-bonus__btn-buy").dataset.shop) if (+sessionStorage.getItem("money") >= config_shop.price_bonus_3) {
             sessionStorage.setItem("bonus-3", +sessionStorage.getItem("bonus-3") + 1);
-            delete_money(8.99, ".check");
+            delete_money(config_shop.price_bonus_3, ".check");
         } else no_money(".check");
         if (targetElement.closest(".objective__button_1")) {
             document.querySelector(".objective__button-count").textContent = 22;
@@ -453,7 +458,6 @@
                 if (2 == el.dataset.bonus && el.classList.contains("_anim-2")) el.classList.remove("_anim-2");
             }));
             let number = targetElement.closest(".field__item").dataset.number - 1;
-            console.log(`Locator, number - ${number}`);
             if (number - 6 >= 0 && 0 != number && 5 != number && 10 != number && 15 != number && 20 != number) {
                 document.querySelectorAll(".item-field__cap")[number - 6].classList.add("_locator");
                 setTimeout((() => {
