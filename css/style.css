@@ -805,12 +805,19 @@ body._hold {
 .game._active .bacgrounds__grid {
   animation: show_item_grid 0.8s ease 0.6s forwards;
 }
-.game._active .game__actions,
-.game._active .game__bonuses {
+.game._active .game__actions {
   animation: show_item_x 0.5s ease 1.6s forwards;
 }
 .game._active .game__field {
   animation: show_item_y 0.5s ease 1.6s forwards;
+}
+.game._active .game__bonuses {
+  animation: show_item_x_bonus 0.5s ease 1.6s forwards;
+}
+@media (min-width: 43.75em) {
+  .game._active .game__bonuses {
+    animation: show_item_x 0.5s ease 1.6s forwards;
+  }
 }
 .game__body {
   padding: 0.125rem 0.9375rem;
@@ -1487,27 +1494,36 @@ body._hold {
   background-color: #00d1ff;
 }
 
-.bonuses {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
 @media (max-width: 43.75em) {
   .bonuses {
     position: absolute;
     top: -0.625rem;
     left: 50%;
-    transform: translate(-50%) scale(0.5);
-    flex-direction: row;
+    transform: translate(-50%);
   }
 }
 @media (min-height: 37.5em) {
   .bonuses {
-    flex-direction: row;
     grid-column-start: span 2;
     margin-top: 2.5rem;
+  }
+}
+.bonuses__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+@media (min-height: 37.5em) {
+  .bonuses__inner {
+    flex-direction: row;
     column-gap: 3.75rem;
+  }
+}
+@media (max-width: 43.75em) {
+  .bonuses__inner {
+    flex-direction: row;
+    transform: scale(0.5);
   }
 }
 .bonuses__button {
@@ -1557,6 +1573,12 @@ body._hold {
 @keyframes show_item_x {
   100% {
     transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes show_item_x_bonus {
+  100% {
+    transform: translateX(-50%);
     opacity: 1;
   }
 }
